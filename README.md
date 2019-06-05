@@ -9,4 +9,4 @@
 ### 5. [React-router](./study/router.md)
 ### 6. [React-redux](./study/redux.md)
 ### 7. [Other](./study/other.md)
-### 5. [面试题](./question/all.md)
+### 5. [面试题](./questions/all.md)
