@@ -98,7 +98,7 @@ promise.then(function(data) {
 ```javaScript
 function request(url, params, success, fail) {
      $.ajax({
-        type: 'GET',
+        type: 'post',
         url: url,
         param: params,
         async: true,    //默认为true,即异步请求；false为同步请求
