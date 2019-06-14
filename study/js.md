@@ -6,12 +6,12 @@
 
 ## JS编码优化
 `1. 严格强类型检查`
-```javaScript
+```js
 0 === false // false
 0 == false // 可能会转为true
 ```
 `2. 使用默认参数替代'||'操作`，但是默认参数并不能取代`空字符串、null`
-``` javaScript
+``` js
 function getName(name) {
     let firstName = name || 'Jhon'
     // ...
@@ -33,18 +33,18 @@ getName(undefined)  // Jhon
 
 ## Promise
 
-`1. 同步`
-``` JavaScript
+#### `1. 同步`
+``` js
 var x = true
 while(x)
 console.log('finish') // 不会执行该行代码
 ```
 x为true，那么while就为死循环，同步造成 [**线程阻塞**] ，因此console将不会执行
 
-`2. 异步`
+#### `2. 异步`
 
 可同时执行多个任务。
-```JavaScript
+```js
 setTimeout(function() {
     console.log('task A')
 }, 0)
@@ -56,7 +56,7 @@ task A
 ```
 `异步任务会在当前脚本的所有同步任务执行完才会执行`，若上述代码的while取消注释了，那么setTimeout将不会执行，因为同步阻塞了进程。
 
-`3. Promise基本用法`
+#### `3. Promise基本用法`
 
 Promise对象代表一个未完成、但预计将来会完成的操作。
 
@@ -67,7 +67,7 @@ Promise对象代表一个未完成、但预计将来会完成的操作。
 *  `pending`： 初始值，非fulfilled，也非rejected
 *  `fulfilled`： 操作成功
 *  `rejected`： 操作失败
-```JavaScript
+```js
 // 构建promise
 var promise = new Promise((resolve, reject) => {
     if(true) {
@@ -88,14 +88,14 @@ promise.then(function(data) {
     // 失败的操作
 })
 ```
-`resolve`异步操作成功后的回调，并将结果作为参数传出去；
+`resolve` 异步操作成功后的回调，并将结果作为参数传出去；
 
-`reject`异步操作失败后的回调，并将结果作为参数传出去。
+`reject` 异步操作失败后的回调，并将结果作为参数传出去。
 
 `4.1 .then()`
 
 对promise添加onFulfilled和onRejected回调，并返回一个新的promise实例，且返回值将最为参数传入新的promise的resolve函数。
-```javaScript
+```js
 function request(url, params, success, fail) {
      $.ajax({
         type: 'post',
@@ -118,5 +118,47 @@ sendRequest('/getUserInfo', {}).then(data1 => {
     })
 }).catch((err) => {
     console.log('请求失败，')
+})
+```
+#### `4.2 .catch()`
+
+用于指定发生错误时的回调函数.
+
+即promise.then(onFulfilled, onRejected)中的onFulfilled为undefined;
+```js
+promise.then(data => {
+    console.log('success')
+}).catch(err => {
+    console.log('error' + err)
+})
+
+// ======== 等同于 =========
+
+promise.then(data => {
+    console.log('success')
+}).catch(undefined, err => {
+    console.log('error' + err)
+})
+```
+#### `4.2 .all()`
+用于将多个Promise实例，包装成一个新的。
+```js
+var p1 = new Promise((resolve,reject) => {
+    setTimeout(()=> {
+        resolve('first')
+    }, 3000)
+})
+var p2 = new Promise((resolve,reject) => {
+    resolve('second')
+})
+var p3 = new Promise((resolve,reject) => {
+    setTimeout(()=> {
+        resolve('first')
+    }, 1000)
+})
+Promise.all([p1, p2, p3]).then((data) => {
+    console.log(data)
+}).catch(err => {
+    console.log(err)
 })
 ```
