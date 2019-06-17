@@ -1,6 +1,7 @@
 # Something About Js
 
 [JS编码优化](#JS编码优化)
+
 [Promise](#Promise)
 
 
