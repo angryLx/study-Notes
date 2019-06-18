@@ -121,6 +121,25 @@ sendRequest('/getUserInfo', {}).then(data1 => {
     console.log('请求失败，')
 })
 ```
+
+promise构造函数是同步执行的，then方法是异步执行的
+
+```js
+const promise = new Promise((resolve, reject) => {
+    console.log(1);
+    resolve(5)
+    console.log(2);
+}).then(val => {
+    console.log(val);
+})
+promise.then(() => {
+    console.log(3);
+})
+console.log(4);
+
+// 执行结果：12453
+
+```
 #### `4.2 .catch()`
 
 用于指定发生错误时的回调函数.
@@ -141,7 +160,7 @@ promise.then(data => {
     console.log('error' + err)
 })
 ```
-#### `4.2 .all()`
+#### `4.3 .all()`
 用于将多个Promise实例，包装成一个新的。
 ```js
 var p1 = new Promise((resolve,reject) => {
@@ -154,12 +173,13 @@ var p2 = new Promise((resolve,reject) => {
 })
 var p3 = new Promise((resolve,reject) => {
     setTimeout(()=> {
-        resolve('first')
+        resolve('third')
     }, 1000)
 })
 Promise.all([p1, p2, p3]).then((data) => {
-    console.log(data)
+    console.log(data)   // ["first", "second", "third"]
 }).catch(err => {
     console.log(err)
 })
 ```
+#### `4.4 .race()`
