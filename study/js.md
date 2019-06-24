@@ -201,6 +201,7 @@ var s = 'asb' // 给字符串分配内存
 function f(a) {
     return a + 1;
 } // 给函数（可调用的对象）分配内存
+
 someElement.addEventListener('click', function(){
   someElement.style.backgroundColor = 'blue';
 }, false); // 函数表达式也能分配一个对象
